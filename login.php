@@ -235,4 +235,22 @@ if (isset($_GET['logout'])) {
             <p><label>Дата рождения: <input type="date" name="birth_date" value="<?= htmlspecialchars($user_data['birth_date'] ?? '', ENT_QUOTES, 'UTF-8') ?>" required></label></p>
             <p>
                 Пол:
-                <label><input type="radio" name="gender" value="male" <?= ($user_data['gender'] ?? '') == 'male'
+                <label><input type="radio" name="gender" value="male" <?= ($user_data['gender'] ?? '') == 'male' ? 'checked' : '' ?>> Мужской</label>
+                <label><input type="radio" name="gender" value="female" <?= ($user_data['gender'] ?? '') == 'female' ? 'checked' : '' ?>> Женский</label>
+                <label><input type="radio" name="gender" value="other" <?= ($user_data['gender'] ?? '') == 'other' ? 'checked' : '' ?>> Другой</label>
+            </p>
+            <p>
+                <label>Языки программирования:<br>
+                    <select name="languages[]" multiple size="6" required>
+                        <?php foreach ($languages as $lang): ?>
+                            <option value="<?= htmlspecialchars($lang['id'], ENT_QUOTES, 'UTF-8') ?>" <?= in_array($lang['id'], $user_languages) ? 'selected' : '' ?>><?= htmlspecialchars($lang['language_name'], ENT_QUOTES, 'UTF-8') ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </label>
+            </p>
+            <p><label>Биография:<br><textarea name="biography" rows="4"><?= htmlspecialchars($user_data['biography'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea></label></p>
+            <p><button type="submit" name="update" value="1">Сохранить изменения</button></p>
+        </form>
+    <?php endif; ?>
+</body>
+</html>
